@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitBrain — Your AI Personal Trainer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- HERO / ONBOARDING -->
+  <div id="onboarding-screen" class="screen active">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <header class="hero-header">
+        <div class="logo">🧠 FitBrain</div>
+        <p class="tagline">Your AI personal trainer. Tell us your goal — we build your plan.</p>
+      </header>
+
+      <form id="profile-form" class="card form-card">
+        <h2>Build My Plan</h2>
+
+        <div class="form-group">
+          <label>What's your main goal?</label>
+          <div class="pill-group" data-name="goal">
+            <button type="button" class="pill" data-value="lose weight">🔥 Lose Weight</button>
+            <button type="button" class="pill" data-value="build muscle">💪 Build Muscle</button>
+            <button type="button" class="pill" data-value="get fit and healthy">❤️ Get Fit</button>
+            <button type="button" class="pill" data-value="improve endurance">🏃 Endurance</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Your fitness level?</label>
+          <div class="pill-group" data-name="level">
+            <button type="button" class="pill" data-value="beginner">🌱 Beginner</button>
+            <button type="button" class="pill" data-value="intermediate">⚡ Intermediate</button>
+            <button type="button" class="pill" data-value="advanced">🔱 Advanced</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Equipment available?</label>
+          <div class="pill-group" data-name="equipment">
+            <button type="button" class="pill" data-value="none">🏠 No equipment</button>
+            <button type="button" class="pill" data-value="home gym (dumbbells, resistance bands)">🏋️ Home gym</button>
+            <button type="button" class="pill" data-value="full gym">🏟️ Full gym</button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group half">
+            <label for="days">Days per week</label>
+            <div class="number-input-wrap">
+              <button type="button" id="days-minus">−</button>
+              <span id="days-display">4</span>
+              <button type="button" id="days-plus">+</button>
+              <input type="hidden" id="days" value="4">
+            </div>
+          </div>
+          <div class="form-group half">
+            <label for="age">Your age</label>
+            <input type="number" id="age" min="10" max="99" placeholder="e.g. 17" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Anything else? <span class="optional">(optional)</span></label>
+          <textarea id="notes" rows="2" placeholder="e.g. bad knees, prefer no running, want to focus on arms..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" id="generate-btn">
+          <span id="btn-text">Generate My Plan ✨</span>
+          <span id="btn-loader" class="hidden">Building your plan...</span>
+        </button>
+        <p id="form-error" class="error-msg hidden">Please select your goal, level, and equipment.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- PLAN SCREEN -->
+  <div id="plan-screen" class="screen">
+    <div class="container">
+      <header class="plan-header">
+        <button id="back-btn" class="btn-ghost">← New Plan</button>
+        <div class="logo">🧠 FitBrain</div>
+      </header>
+
+      <div class="plan-intro card" id="plan-intro"></div>
+
+      <div class="progress-tracker" id="progress-tracker"></div>
+
+      <div class="week-grid" id="week-grid"></div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
