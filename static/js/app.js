@@ -1,9 +1,8 @@
-// ── State ──────────────────────────────────────────────────────────
 let currentProfile = {};
 let currentPlan = null;
 let completedDays = new Set();
 
-// ── Pill selection ─────────────────────────────────────────────────
+
 document.querySelectorAll('.pill-group').forEach(group => {
   group.querySelectorAll('.pill').forEach(pill => {
     pill.addEventListener('click', () => {
@@ -13,7 +12,6 @@ document.querySelectorAll('.pill-group').forEach(group => {
   });
 });
 
-// ── Days counter ───────────────────────────────────────────────────
 let daysValue = 4;
 document.getElementById('days-minus').addEventListener('click', () => {
   if (daysValue > 2) { daysValue--; document.getElementById('days-display').textContent = daysValue; document.getElementById('days').value = daysValue; }
@@ -22,7 +20,6 @@ document.getElementById('days-plus').addEventListener('click', () => {
   if (daysValue < 6) { daysValue++; document.getElementById('days-display').textContent = daysValue; document.getElementById('days').value = daysValue; }
 });
 
-// ── Form submit ────────────────────────────────────────────────────
 document.getElementById('profile-form').addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -70,20 +67,16 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
   }
 });
 
-// ── Back button ────────────────────────────────────────────────────
 document.getElementById('back-btn').addEventListener('click', () => {
   showScreen('onboarding-screen');
 });
 
-// ── Render plan ────────────────────────────────────────────────────
 function renderPlan(plan) {
-  // Intro
   document.getElementById('plan-intro').innerHTML = `
     <h1>${plan.plan_title}</h1>
     <p>${plan.plan_description}</p>
   `;
 
-  // Progress tracker
   const tracker = document.getElementById('progress-tracker');
   tracker.innerHTML = '';
   plan.weekly_plan.forEach((day, i) => {
@@ -104,7 +97,6 @@ function renderPlan(plan) {
     tracker.appendChild(el);
   });
 
-  // Week grid
   const grid = document.getElementById('week-grid');
   grid.innerHTML = '';
   plan.weekly_plan.forEach((day, i) => {
@@ -124,7 +116,7 @@ function renderPlan(plan) {
         <div class="day-actions">
           ${!isRest ? `
             <span class="day-meta">${duration}</span>
-            <button class="btn-regen" data-index="${i}">🔄 Different</button>
+            <button class="btn-regen" data-index="${i}">Regenerate</button>
             <button class="btn-done" data-index="${i}">✓ Done</button>
           ` : ''}
           ${!isRest ? `<span class="chevron">▼</span>` : `<span class="day-meta">Rest day 😴</span>`}
@@ -139,19 +131,17 @@ function renderPlan(plan) {
       ` : ''}
     `;
 
-    // Toggle expand
     if (!isRest) {
       card.querySelector('.day-card-header').addEventListener('click', (e) => {
         if (e.target.closest('.btn-regen') || e.target.closest('.btn-done')) return;
         card.classList.toggle('open');
       });
 
-      // Regenerate day
       card.querySelector('.btn-regen').addEventListener('click', async (e) => {
         e.stopPropagation();
         const btn = e.currentTarget;
         btn.disabled = true;
-        btn.textContent = '⏳ Loading...';
+        btn.textContent = 'Loading...';
         try {
           const res = await fetch('/regenerate-day', {
             method: 'POST',
@@ -176,11 +166,10 @@ function renderPlan(plan) {
           alert('Could not regenerate. Try again.');
         } finally {
           btn.disabled = false;
-          btn.textContent = '🔄 Different';
+          btn.textContent = 'Regenerate';
         }
       });
 
-      // Mark done
       card.querySelector('.btn-done').addEventListener('click', (e) => {
         e.stopPropagation();
         if (completedDays.has(i)) {
@@ -196,7 +185,6 @@ function renderPlan(plan) {
 
     grid.appendChild(card);
 
-    // Re-apply done state
     if (completedDays.has(i)) {
       card.classList.add('done');
     }
@@ -220,7 +208,6 @@ function renderExercise(ex, dayIndex, exIndex) {
   `;
 }
 
-// ── Exercise checkboxes (delegated) ───────────────────────────────
 document.getElementById('week-grid').addEventListener('click', (e) => {
   const checkbox = e.target.closest('.ex-checkbox');
   if (!checkbox) return;
@@ -228,7 +215,6 @@ document.getElementById('week-grid').addEventListener('click', (e) => {
   item.classList.toggle('checked');
 });
 
-// ── Progress tracker update ────────────────────────────────────────
 function updateProgressTracker() {
   document.querySelectorAll('.progress-day').forEach(el => {
     const i = parseInt(el.dataset.index);
@@ -244,7 +230,6 @@ function updateProgressTracker() {
   });
 }
 
-// ── Screen switching ───────────────────────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');

@@ -26,11 +26,11 @@ body {
   padding: 0 20px 60px;
 }
 
-/* SCREENS */
+/* screens */
 .screen { display: none; }
 .screen.active { display: block; }
 
-/* HERO */
+/* hero */
 .hero-bg {
   position: fixed; top: 0; left: 0; right: 0; height: 340px;
   background: radial-gradient(ellipse at 50% -10%, #16a34a33 0%, transparent 70%);
@@ -55,7 +55,7 @@ body {
   font-size: 1.05rem;
 }
 
-/* CARD */
+/* card */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -70,7 +70,7 @@ body {
   margin-bottom: 28px;
 }
 
-/* FORM */
+/* form */
 .form-group { margin-bottom: 24px; }
 .form-group label {
   display: block;
@@ -173,7 +173,7 @@ textarea { resize: vertical; }
 
 .error-msg { color: #f87171; font-size: 0.9rem; margin-top: 10px; }
 
-/* PLAN SCREEN */
+/* plan screen */
 .plan-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 24px 0 32px;
@@ -187,7 +187,7 @@ textarea { resize: vertical; }
 }
 .plan-intro p { color: var(--muted); line-height: 1.6; }
 
-/* PROGRESS */
+/* progress */
 .progress-tracker {
   display: flex; gap: 10px; flex-wrap: wrap;
   margin-bottom: 28px;
@@ -211,7 +211,7 @@ textarea { resize: vertical; }
 }
 .progress-day.done .day-label { color: var(--green); }
 
-/* WEEK GRID */
+/* week grid */
 .week-grid { display: flex; flex-direction: column; gap: 16px; }
 
 .day-card {
